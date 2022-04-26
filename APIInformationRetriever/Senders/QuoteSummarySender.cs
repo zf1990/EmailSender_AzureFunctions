@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace APIInformationRetriever.Senders
 {
-    public class QuoteSender : BaseSender
+    public class QuoteSummarySender : BaseSender
     {
-        public IQuoteRequest Request { get; set; }
-        public QuoteSender(string APIKey, IQuoteRequest Request) : base(APIKey)
+        public IQuoteSummaryRequest Request { get; set; }
+        public QuoteSummarySender(string APIKey, IQuoteSummaryRequest Request): base(APIKey)
         {
             this.Request = Request;
         }
@@ -24,9 +24,8 @@ namespace APIInformationRetriever.Senders
             sb.Append("&");
             sb.Append($"region={Request.Region}");
             sb.Append("&");
-            sb.Append("symbols=");
-            sb.Append(String.Join(',', Request.Symbols));
-            RequestUrl += sb.ToString();                
+            sb.Append($"symbol={Request.Symbol}");
+            sb.Append("&");
         }
     }
 }

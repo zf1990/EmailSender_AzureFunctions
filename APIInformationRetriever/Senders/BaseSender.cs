@@ -28,5 +28,6 @@ namespace APIInformationRetriever.Senders
             return await response.Content.ReadAsStringAsync();
         }
 
+        public abstract void FormUrl();
     }
 }
