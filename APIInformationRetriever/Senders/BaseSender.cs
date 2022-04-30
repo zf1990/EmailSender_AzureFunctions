@@ -11,14 +11,14 @@ namespace APIInformationRetriever.Senders
         protected string BaseUrl = "https://yfapi.net";
         protected string APIKey { get; init; }
 
-        protected string RequestUrl { get; set; }
+        protected string RequestUrl { get; set; } = string.Empty;
 
         public BaseSender(string APIKey)
         {
             this.APIKey = APIKey;
         }
 
-        protected async Task<string> Send()
+        public async Task<string> Send()
         {
             var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(BaseUrl);

@@ -2,17 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace APIInformationRetriever.Senders
 {
-    public class QuoteSender : BaseSender
+    public class SparkSender : BaseSender
     {
-        public IQuoteRequest Request { get; set; }
-        public string subUrl { get; set; } = "/v6/finance/quote";
-        public QuoteSender(string APIKey, IQuoteRequest Request) : base(APIKey)
+        public ISparkRequest Request { get; set; }
+        public string SubUrl { get; set; } = "/v8/finance/spark";
+        public SparkSender(string APIKey, ISparkRequest Request) : base(APIKey)
         {
             this.Request = Request;
             FormUrl();
@@ -20,15 +19,15 @@ namespace APIInformationRetriever.Senders
 
         public override void FormUrl()
         {
-            RequestUrl = BaseUrl + subUrl + "?";
+            RequestUrl = BaseUrl + SubUrl;
             StringBuilder sb = new StringBuilder();
-            sb.Append($"lang={Request.Lang}");
+            sb.Append("?");
+            sb.Append("interval=" + Request.Interval);
             sb.Append("&");
-            sb.Append($"region={Request.Region}");
+            sb.Append("range=" + Request.Range);
             sb.Append("&");
-            sb.Append("symbols=");
             sb.Append(String.Join(',', Request.Symbols));
-            RequestUrl += sb.ToString();                
+            RequestUrl += sb.ToString();
         }
     }
 }

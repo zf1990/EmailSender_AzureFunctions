@@ -8,6 +8,7 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\APIInformationRetriever\APIInformationRetriever.csproj" />
     <ProjectReference Include="..\AzureServices\AzureServices.csproj" />
   </ItemGroup>
   <ItemGroup>

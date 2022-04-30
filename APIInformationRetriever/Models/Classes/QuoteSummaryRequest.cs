@@ -39,7 +39,7 @@ namespace APIInformationRetriever.Models.Classes
 
         public void RemoveModules(ModulesEnum Module)
         {
-            IQuoteSummaryRequest.Modules.Remove(Module);
+            throw new NotImplementedException();
         }
     }
 }
