@@ -1,4 +1,5 @@
-﻿using APIInformationRetriever.Models.Interfaces;
+﻿using APIInformationRetriever.Models.Classes.Responses;
+using APIInformationRetriever.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,11 @@ namespace APIInformationRetriever.Senders
             sb.Append("&");
             sb.Append(String.Join(',', Request.Symbols));
             RequestUrl += sb.ToString();
+        }
+
+        public override IResponse GetResponse()
+        {
+            throw new NotImplementedException();
         }
     }
 }

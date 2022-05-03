@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using APIInformationRetriever.Factory;
 using APIInformationRetriever.Models.Classes;
+using APIInformationRetriever.Models.Classes.Responses;
 using APIInformationRetriever.Models.Interfaces;
 using AzureServices;
 using Microsoft.Azure.WebJobs;
@@ -35,7 +36,8 @@ namespace EmailSender
             IFactory factory = new SenderFactory();
             var RequestSender = factory.GetSender(Request, APIKeyTask.Result);
             string information = await RequestSender.Send();
-            Console.WriteLine(information);
+            IResponse response = RequestSender.GetResponse();
+            //Console.WriteLine(information);
 
             Sender sender = new Sender(Email, EmailPasswordTask.Result);
             sender.AddRecipientEmail("zfang1216@gmail.com");

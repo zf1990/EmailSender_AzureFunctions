@@ -1,4 +1,7 @@
-﻿using APIInformationRetriever.Models.Interfaces;
+﻿using APIInformationRetriever.Models.Classes.Responses;
+using APIInformationRetriever.Models.Interfaces;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +32,24 @@ namespace APIInformationRetriever.Senders
             sb.Append("symbols=");
             sb.Append(String.Join(',', Request.Symbols));
             RequestUrl += sb.ToString();                
+        }
+
+        public override IResponse GetResponse()
+        {
+            JObject obj = JObject.Parse(ResponseString);
+            IList<JToken> results = obj["quoteResponse"]["result"].Children().ToList();
+            List<QuoteResult> responseData = new List<QuoteResult>();
+
+            foreach(JToken result in results)
+            {
+                QuoteResult quoteResult = result.ToObject<QuoteResult>();
+                responseData.Add(quoteResult);
+            }
+
+            QuoteResponse response = new QuoteResponse();
+            response.QuoteResults = responseData;
+
+            return response;
         }
     }
 }

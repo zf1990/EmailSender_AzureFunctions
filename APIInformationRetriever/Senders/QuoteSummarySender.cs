@@ -1,4 +1,5 @@
-﻿using APIInformationRetriever.Models.Interfaces;
+﻿using APIInformationRetriever.Models.Classes.Responses;
+using APIInformationRetriever.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace APIInformationRetriever.Senders
             sb.Append($"lang={Request.Lang}");
             sb.Append("&");
             sb.Append($"region={Request.Region}");
+        }
+
+        public override IResponse GetResponse()
+        {
+            throw new NotImplementedException();
         }
     }
 }

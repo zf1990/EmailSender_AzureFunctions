@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APIInformationRetriever.Models.Classes.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,14 @@ namespace APIInformationRetriever.Senders
         protected string BaseUrl = "https://yfapi.net";
         protected string APIKey { get; init; }
 
+        public string ResponseString { get; set; }
+
         protected string RequestUrl { get; set; } = string.Empty;
 
         public BaseSender(string APIKey)
         {
             this.APIKey = APIKey;
+            ResponseString = string.Empty;
         }
 
         public async Task<string> Send()
@@ -25,9 +29,11 @@ namespace APIInformationRetriever.Senders
             httpClient.DefaultRequestHeaders.Add("X-API-KEY", APIKey);
             httpClient.DefaultRequestHeaders.Add("accept", "application/json");
             var response = await httpClient.GetAsync(RequestUrl);
-            return await response.Content.ReadAsStringAsync();
+            ResponseString =  await response.Content.ReadAsStringAsync();
+            return ResponseString;
         }
 
         public abstract void FormUrl();
+        public abstract IResponse GetResponse();
     }
 }

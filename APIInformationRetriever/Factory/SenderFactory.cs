@@ -16,13 +16,13 @@ namespace APIInformationRetriever.Factory
             BaseSender sender = null;
             switch(Request)
             {
-                case QuoteRequest request:
+                case IQuoteRequest request:
                     sender = new QuoteSender(APIKey, request);
                     break;
-                case QuoteSummaryRequest request:
+                case IQuoteSummaryRequest request:
                     sender = new QuoteSummarySender(APIKey, request);
                     break;
-                case SparkRequest request:
+                case ISparkRequest request:
                     sender = new SparkSender(APIKey, request);
                     break;
                 default:
