@@ -10,7 +10,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSender", "EmailSender\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureServices", "AzureServices\AzureServices.csproj", "{CFC5DA64-2E58-46CC-AD89-7F78EF2B8C5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIInformationRetriever", "APIInformationRetriever\APIInformationRetriever.csproj", "{C07D5260-0FEA-4788-9566-E7C3524CC9BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIInformationRetriever", "APIInformationRetriever\APIInformationRetriever.csproj", "{C07D5260-0FEA-4788-9566-E7C3524CC9BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileWritter", "FileWritter\FileWritter.csproj", "{E08DCF3C-B1FC-4E37-98AC-507527B24444}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,10 @@ Global
 		{C07D5260-0FEA-4788-9566-E7C3524CC9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C07D5260-0FEA-4788-9566-E7C3524CC9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C07D5260-0FEA-4788-9566-E7C3524CC9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E08DCF3C-B1FC-4E37-98AC-507527B24444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E08DCF3C-B1FC-4E37-98AC-507527B24444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E08DCF3C-B1FC-4E37-98AC-507527B24444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E08DCF3C-B1FC-4E37-98AC-507527B24444}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
