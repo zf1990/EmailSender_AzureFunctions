@@ -6,6 +6,7 @@ using APIInformationRetriever.Models.Classes;
 using APIInformationRetriever.Models.Classes.Responses;
 using APIInformationRetriever.Models.Interfaces;
 using AzureServices;
+using FileWritter;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
@@ -39,11 +40,17 @@ namespace EmailSender
             IResponse response = RequestSender.GetResponse();
             //Console.WriteLine(information);
 
+            Writer writer = new Writer(response, "StockInfo");
+            string filePath = writer.WriteResponses();
+
             Sender sender = new Sender(Email, EmailPasswordTask.Result);
             sender.AddRecipientEmail("zfang1216@gmail.com");
             sender.SetSubject("SMTP Test");
             sender.SetMessage("Test test test");
+            sender.AddAttachment(filePath);
             sender.Send();
+
+            writer.DeleteFile();
 
             Console.WriteLine("Completed");
 
