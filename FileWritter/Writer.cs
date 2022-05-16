@@ -45,8 +45,10 @@ namespace FileWritter
                     StringBuilder sb = new StringBuilder();
                     foreach (PropertyInfo prop in Props)
                     {
-                        if(prop.GetValue(result) != null)
+                        if (prop.GetValue(result) != null)
                             sb.Append(prop.GetValue(result).ToString().Replace(',', '-'));
+                        else
+                            sb.Append("");
 
                         sb.Append(",");
                     }
