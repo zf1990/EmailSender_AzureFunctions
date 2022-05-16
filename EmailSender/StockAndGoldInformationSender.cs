@@ -32,7 +32,7 @@ namespace EmailSender
             var APIKeyTask = _service.GetSecretValue(Environment.GetEnvironmentVariable("YahooFinanceAPIKey"));
             Task.WaitAll(new Task[] {EmailPasswordTask, APIKeyTask});
 
-            HashSet<string> Symbols = new HashSet<string>() {"MSFT", "GOOG", "ClOV", "WLDN"};
+            HashSet<string> Symbols = new HashSet<string>() {"VFIAX", "XOM", "OXY", "CVX", "COP", "ENB", "SU", "IMO", "CNQ", "CHK"};
             IRequest Request = new QuoteRequest(Symbols);
             IFactory factory = new SenderFactory();
             var RequestSender = factory.GetSender(Request, APIKeyTask.Result);
@@ -45,8 +45,9 @@ namespace EmailSender
 
             Sender sender = new Sender(Email, EmailPasswordTask.Result);
             sender.AddRecipientEmail("zfang1216@gmail.com");
-            sender.SetSubject("SMTP Test");
-            sender.SetMessage("Test test test");
+            sender.AddRecipientEmail("fzp58@163.com");
+            sender.SetSubject("Stock Information");
+            sender.SetMessage("Please see the attachment for the stock information for today.  VFIAX represent S&P 500.");
             sender.AddAttachment(filePath);
             sender.Send();
 
