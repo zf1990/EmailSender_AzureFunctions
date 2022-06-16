@@ -16,7 +16,8 @@ namespace EmailSender
     public class StockAndGoldInformationSender
     {
         [FunctionName("EmailSender")]
-        public async Task Run([TimerTrigger("0 30 9 * * 1-5",
+        public async Task Run([TimerTrigger("0 30 9 * * 1-5"
+           ,
         #if DEBUG
             RunOnStartup=true
         #endif
@@ -41,17 +42,15 @@ namespace EmailSender
             //Console.WriteLine(information);
 
             Writer writer = new Writer(response, "StockInfo");
-            string filePath = writer.WriteResponses();
+            var fileStream = writer.WriteResponses();
 
-            Sender sender = new Sender(Email, EmailPasswordTask.Result);
+            Sender sender = new Sender(Email, EmailPasswordTask.Result, fileStream, "StockInfo.csv");
             sender.AddRecipientEmail("zfang1216@gmail.com");
             sender.AddRecipientEmail("fzp58@163.com");
             sender.SetSubject("Stock Information");
             sender.SetMessage("Please see the attachment for the stock information for today.  VFIAX represent S&P 500.");
-            sender.AddAttachment(filePath);
             sender.Send();
 
-            writer.DeleteFile();
 
             Console.WriteLine("Completed");
 

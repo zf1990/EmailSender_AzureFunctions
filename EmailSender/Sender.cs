@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
+using System.IO;
 
 namespace EmailSender
 {
@@ -12,15 +13,18 @@ namespace EmailSender
     {
         public string SenderEmail { get; set; }
         private string Password { get; init; }
+        public MemoryStream Stream { get; }
         private HashSet<string> RecipientEmails { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
-        public string AttachmentFileName { get; set; } = string.Empty;
-        public Sender(string Email, string Password)
+        public string FileName { get; set; }
+        public Sender(string Email, string Password, MemoryStream Stream, string FileName)
         {
             this.SenderEmail = Email;
             this.Password = Password;
+            this.Stream = Stream;
             RecipientEmails = new HashSet<string>();
+            this.FileName = FileName;
         }
 
 
@@ -53,9 +57,16 @@ namespace EmailSender
             mail.Subject = Subject;
             mail.Body = Message;
             mail.IsBodyHtml = true;
-            mail.Attachments.Add(new Attachment(AttachmentFileName));
+            mail.Attachments.Add(GetAttachment());
 
             return mail;
+        }
+
+        public Attachment GetAttachment()
+        {
+            Attachment attachment = new Attachment(Stream, FileName);
+            attachment.ContentType = new System.Net.Mime.ContentType("text/plain");
+            return attachment;
         }
 
         public void Send()
@@ -67,10 +78,6 @@ namespace EmailSender
             client.EnableSsl = true;
             MailMessage message = BuildMailMessage();
             client.Send(message);
-        }
-
-        public void AddAttachment(string fileName) {
-            AttachmentFileName = fileName;
         }
 
     }

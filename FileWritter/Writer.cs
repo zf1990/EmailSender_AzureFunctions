@@ -6,7 +6,6 @@ namespace FileWritter
 {
     public class Writer
     {
-        public string PathStr { get; set; } = Directory.GetCurrentDirectory();
         public string FileName { get; set; }
         public IResponse Response { get; set; }
         public Writer(IResponse Response, string FileName)
@@ -15,7 +14,7 @@ namespace FileWritter
             this.Response = Response;
         }
 
-        public string WriteResponses()
+        public MemoryStream WriteResponses()
         {
             switch (Response)
             {
@@ -28,38 +27,37 @@ namespace FileWritter
                 default:
                     throw new ArgumentException("This response is not supported at the moment");
             }
-            return string.Empty;
+
+            return new MemoryStream(); //Just to stop compiler from yelling at me.
         }
 
-        private string WriteResponses(List<QuoteResult> results)
+        private MemoryStream WriteResponses(List<QuoteResult> results)
         {
             Type t = results[0].GetType();
             PropertyInfo[] Props = t.GetProperties();
             FileName += FileName + DateTime.Now.ToString("yyyy-MM-dd") + ".csv";
-            using (StreamWriter sr = new StreamWriter(Path.Combine(PathStr, FileName)))
+            var MStream = new MemoryStream();
+            StreamWriter sr = new StreamWriter(MStream);
+            var line = String.Join(',', Props.Select(p => p.Name).ToArray());
+            sr.WriteLine(line);
+            foreach (var result in results)
             {
-                var line = String.Join(',', Props.Select(p => p.Name).ToArray());
-                sr.WriteLine(line);
-                foreach(var result in results)
+                StringBuilder sb = new StringBuilder();
+                foreach (PropertyInfo prop in Props)
                 {
-                    StringBuilder sb = new StringBuilder();
-                    foreach (PropertyInfo prop in Props)
-                    {
-                        if (prop.GetValue(result) != null)
-                            sb.Append(prop.GetValue(result).ToString().Replace(',', '-'));
-                        else
-                            sb.Append("");
+                    if (prop.GetValue(result) != null)
+                        sb.Append(prop.GetValue(result).ToString().Replace(',', '-'));
+                    else
+                        sb.Append("");
 
-                        sb.Append(",");
-                    }
-                    sb.Remove(sb.Length - 1, 1);
-                    sr.WriteLine(sb.ToString());
+                    sb.Append(",");
                 }
+                sb.Remove(sb.Length - 1, 1);
+                sr.WriteLine(sb.ToString());
             }
-            return Path.Combine(PathStr, FileName);
+            sr.Flush();
+            MStream.Seek(0, SeekOrigin.Begin);
+            return MStream;
         }
-
-        public void DeleteFile() =>
-            File.Delete(PathStr);
     }
 }
