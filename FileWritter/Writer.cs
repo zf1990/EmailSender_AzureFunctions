@@ -6,11 +6,9 @@ namespace FileWritter
 {
     public class Writer
     {
-        public string FileName { get; set; }
         public IResponse Response { get; set; }
-        public Writer(IResponse Response, string FileName)
+        public Writer(IResponse Response)
         {
-            this.FileName = FileName;
             this.Response = Response;
         }
 
@@ -35,7 +33,6 @@ namespace FileWritter
         {
             Type t = results[0].GetType();
             PropertyInfo[] Props = t.GetProperties();
-            FileName += FileName + DateTime.Now.ToString("yyyy-MM-dd") + ".csv";
             var MStream = new MemoryStream();
             StreamWriter sr = new StreamWriter(MStream);
             var line = String.Join(',', Props.Select(p => p.Name).ToArray());

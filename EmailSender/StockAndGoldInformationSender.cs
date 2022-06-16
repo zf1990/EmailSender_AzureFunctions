@@ -17,10 +17,10 @@ namespace EmailSender
     {
         [FunctionName("EmailSender")]
         public async Task Run([TimerTrigger("0 30 9 * * 1-5"
-           ,
-        #if DEBUG
-            RunOnStartup=true
-        #endif
+        //   ,
+        //#if DEBUG
+        //    RunOnStartup=true
+        //#endif
             )]
             TimerInfo myTimer, ILogger log)
         {
@@ -41,7 +41,7 @@ namespace EmailSender
             IResponse response = RequestSender.GetResponse();
             //Console.WriteLine(information);
 
-            Writer writer = new Writer(response, "StockInfo");
+            Writer writer = new Writer(response);
             var fileStream = writer.WriteResponses();
 
             Sender sender = new Sender(Email, EmailPasswordTask.Result, fileStream, "StockInfo.csv");
@@ -50,11 +50,6 @@ namespace EmailSender
             sender.SetSubject("Stock Information");
             sender.SetMessage("Please see the attachment for the stock information for today.  VFIAX represent S&P 500.");
             sender.Send();
-
-
-            Console.WriteLine("Completed");
-
-
         }
     }
 }
