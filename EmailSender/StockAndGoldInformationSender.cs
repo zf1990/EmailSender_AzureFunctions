@@ -16,11 +16,11 @@ namespace EmailSender
     public class StockAndGoldInformationSender
     {
         [FunctionName("EmailSender")]
-        public async Task Run([TimerTrigger("0 30 9 * * 1-5"
-        //   ,
-        //#if DEBUG
-        //    RunOnStartup=true
-        //#endif
+        public async Task Run([TimerTrigger("0 30 21 * * 1-5"
+           ,
+        #if DEBUG
+            RunOnStartup=true
+        #endif
             )]
             TimerInfo myTimer, ILogger log)
         {
