@@ -8,6 +8,8 @@ namespace APIInformationRetriever.Models.Classes.Responses
 {
     public class QuoteResult
     {
+        public string ShortName { get; set; }
+        public string Symbol { get; set; }
         public double RegularMarketPrice { get; set; }
         public double RegularMarketDayHigh { get; set; }
         public double RegularMarketDayLow { get; set; }
@@ -20,8 +22,6 @@ namespace APIInformationRetriever.Models.Classes.Responses
         public long MarketCap { get; set; }
         public double ForwardPE { get; set; }
         public string AverageAnalystRating { get; set; }
-        public string ShortName { get; set; }
-        // public string LongName { get; set; }
         public long RegularMarketVolume { get; set; }
         public double RegularMarketPreviousClose { get; set; }
         public long AverageDailyVolume3Month { get; set; }
@@ -33,9 +33,7 @@ namespace APIInformationRetriever.Models.Classes.Responses
         public double TrailingAnnualDividendYield { get; set; }
         public double EpsTrailingTwelveMonths { get; set; }
         public double EpsForward { get; set; }
-        public double EpsCurrentYear { get; set; }
-        // public string DisplayName { get; set; }
-        public string Symbol { get; set; }
+        public double EpsCurrentYear { get; set; }        
 
     }
 }
