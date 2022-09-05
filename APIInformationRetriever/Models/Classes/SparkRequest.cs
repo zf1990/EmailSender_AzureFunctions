@@ -14,15 +14,7 @@ namespace APIInformationRetriever.Models.Classes
         public HashSet<string> Symbols { get; set; } = new HashSet<string>();
         public int MaxSymbols { get; set; } = 10;
 
-        public bool AddSymbol(string Symbol)
-        {
-            if (Symbols.Count < MaxSymbols)
-            {
-                Symbols.Add(Symbol);
-                return true;
-            }
-            return false;
-        }
+        public void AddSymbol(string Symbol) => Symbols.Add(Symbol);
 
         public void RemoveSymbol(string Symbol)
         {

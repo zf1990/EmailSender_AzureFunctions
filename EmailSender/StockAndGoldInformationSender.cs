@@ -33,13 +33,12 @@ namespace EmailSender
             var APIKeyTask = _service.GetSecretValue(Environment.GetEnvironmentVariable("YahooFinanceAPIKey"));
             Task.WaitAll(new Task[] {EmailPasswordTask, APIKeyTask});
 
-            HashSet<string> Symbols = new HashSet<string>() {"VFIAX", "XOM", "OXY", "CVX", "COP", "ENB", "SU", "IMO", "CNQ", "CHK"};
+            HashSet<string> Symbols = new HashSet<string>() {"VFIAX", "XOM", "OXY", "CVX", "COP", "ENB", "SU", "IMO", "CNQ", "CHK", "UAL", "BAC"};
             IRequest Request = new QuoteRequest(Symbols);
             IFactory factory = new SenderFactory();
             var RequestSender = factory.GetSender(Request, APIKeyTask.Result);
-            string information = await RequestSender.Send();
+            await RequestSender.Send();
             IResponse response = RequestSender.GetResponse();
-            //Console.WriteLine(information);
 
             Writer writer = new Writer(response);
             var fileStream = writer.WriteResponses();

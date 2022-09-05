@@ -20,15 +20,7 @@ namespace APIInformationRetriever.Models.Classes
             this.Symbols = Symbols;
         }
 
-        public bool AddSymbol(string symbol)
-        {
-            if (Symbols.Count < 10)
-            {
-                Symbols.Add(symbol);
-                return true;
-            }
-            return false;
-        }
+        public void AddSymbol(string symbol) => Symbols.Add(symbol);
 
         public void RemoveSymbol(string symbol) => Symbols.Remove(symbol);
     }

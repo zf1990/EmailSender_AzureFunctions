@@ -10,7 +10,7 @@ namespace APIInformationRetriever.Models.Interfaces
     {
         public HashSet<string> Symbols { get; set; }
         public int MaxSymbols { get; set; }
-        public bool AddSymbol(string Symbol);
+        public void AddSymbol(string Symbol);
         public void RemoveSymbol(string Symbol);
     }
 }
